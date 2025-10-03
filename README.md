@@ -110,6 +110,8 @@ Once deployed, get the LoadBalancer URL:
 ```bash
 kubectl get svc flask-service
 ```
+<img width="1751" height="68" alt="image" src="https://github.com/user-attachments/assets/67122bb2-3676-4da1-b80a-765b65621628" />
+
 
 Then open:
 
