@@ -29,6 +29,10 @@ This project demonstrates a complete CI/CD pipeline for deploying a Flask applic
 │-- requirements.txt        # Python dependencies
 ```
 
+
+<img width="1919" height="1022" alt="image" src="https://github.com/user-attachments/assets/4a955810-7c11-445d-95b5-a849500d1576" />
+
+
 ---
 
 ## GitHub Secrets Used
@@ -37,7 +41,7 @@ The following secrets must be configured in your GitHub repository:
 
 * **AWS_ACCESS_KEY_ID** → IAM user access key
 * **AWS_SECRET_ACCESS_KEY** → IAM user secret
-* **AWS_ACCOUNT_ID** → Your AWS account ID
+* **AWS_ACCOUNT_ID** → AWS account ID
 * **AWS_REGION** → AWS region (e.g., `ap-south-1`)
 * **ECR_REPO** → ECR repository name (e.g., `flaskapp`)
 * **ECR_URI** → Full ECR URI (`<account-id>.dkr.ecr.<region>.amazonaws.com/<repo>`)
