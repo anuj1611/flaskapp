@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: flask
-          image: <AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/<ECR_REPO>:latest   # ✅ Update here
+          image: 774305615033.dkr.ecr.ap-south-1.amazonaws.com/flaskapp:latest   # ✅ Update here
           ports:
             - containerPort: 5000
