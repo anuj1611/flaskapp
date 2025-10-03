@@ -110,9 +110,9 @@ Check resources:
 kubectl get pods
 kubectl get svc
 ```
-
+---
 <img width="1505" height="106" alt="image" src="https://github.com/user-attachments/assets/73d2f34d-e9f9-43fd-be1b-3e52c35a3199" />
-
+---
 
 <img width="1565" height="81" alt="image" src="https://github.com/user-attachments/assets/eb08ec07-8d8c-4d7f-83b0-25c6b9491813" />
 
