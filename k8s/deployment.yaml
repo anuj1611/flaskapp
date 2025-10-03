@@ -1,24 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-name: flask-deployment
+  name: flask-deployment
 spec:
-replicas: 1
-selector:
-matchLabels:
-app: flask
-template:
-metadata:
-labels:
-app: flask
-spec:
-containers:
-- name: flask
-# Replace <REPLACE_WITH_ECR_URI> with your ECR URI (or keep placeholder and let the workflow set the image)
-image: <REPLACE_WITH_ECR_URI>:latest
-ports:
-- containerPort: 5000
-# If you need env vars, add them here
-# env:
-# - name: REDIS_HOST
-# value: "redis"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask
+  template:
+    metadata:
+      labels:
+        app: flask
+    spec:
+      containers:
+        - name: flask
+          image: <AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/<ECR_REPO>:latest   # ✅ Update here
+          ports:
+            - containerPort: 5000
