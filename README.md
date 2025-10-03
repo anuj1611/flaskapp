@@ -110,6 +110,8 @@ Once deployed, get the LoadBalancer URL:
 ```bash
 kubectl get svc flask-service
 ```
+
+
 <img width="1751" height="68" alt="image" src="https://github.com/user-attachments/assets/67122bb2-3676-4da1-b80a-765b65621628" />
 
 
@@ -140,6 +142,10 @@ Services:
 * Docker image → Built and pushed to AWS ECR.
 * Kubernetes manifests → Applied to EKS cluster.
 * Application → Accessible via AWS LoadBalancer endpoint.
+  
+
+<img width="1919" height="962" alt="image" src="https://github.com/user-attachments/assets/ff375bb0-9a14-423f-9310-8acf748c608d" />
+
 
 ---
 
