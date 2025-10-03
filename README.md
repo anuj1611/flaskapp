@@ -61,10 +61,6 @@ The pipeline consists of the following stages:
 6. **Push Docker image** → Pushes image to AWS ECR.
 7. **Deploy to Amazon EKS** → Applies Kubernetes manifests (Deployment & Service).
 
-
-<img width="719" height="134" alt="image" src="https://github.com/user-attachments/assets/bdb2ad20-6580-4748-ad29-09c6706a0243" />
-
-
 <img width="1919" height="982" alt="image" src="https://github.com/user-attachments/assets/e9b89639-9b93-4d9b-85f1-b0d1e1940a98" />
 
 ---
@@ -110,9 +106,9 @@ Check resources:
 kubectl get pods
 kubectl get svc
 ```
----
+
 <img width="1505" height="106" alt="image" src="https://github.com/user-attachments/assets/73d2f34d-e9f9-43fd-be1b-3e52c35a3199" />
----
+
 
 <img width="1565" height="81" alt="image" src="https://github.com/user-attachments/assets/eb08ec07-8d8c-4d7f-83b0-25c6b9491813" />
 
