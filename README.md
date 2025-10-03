@@ -4,7 +4,7 @@ This project demonstrates a complete CI/CD pipeline for deploying a Flask applic
 
 ---
 
-## 🚀 Project Overview
+## Project Overview
 
 * **Application**: A simple Flask app with Redis integration to track page visits.
 * **Containerization**: Dockerized Flask app.
@@ -13,7 +13,7 @@ This project demonstrates a complete CI/CD pipeline for deploying a Flask applic
 
 ---
 
-## 📂 Directory Structure
+## Directory Structure
 
 ```
 .flaskapp/
@@ -31,7 +31,7 @@ This project demonstrates a complete CI/CD pipeline for deploying a Flask applic
 
 ---
 
-## 🔑 GitHub Secrets Used
+## GitHub Secrets Used
 
 The following secrets must be configured in your GitHub repository:
 
@@ -45,7 +45,7 @@ The following secrets must be configured in your GitHub repository:
 
 ---
 
-## ⚙️ CI/CD Workflow (`ci-cd.yml`)
+## CI/CD Workflow (`ci-cd.yml`)
 
 The pipeline consists of the following stages:
 
@@ -59,7 +59,7 @@ The pipeline consists of the following stages:
 
 ---
 
-## 🐳 Docker Setup
+## Docker Setup
 
 **Dockerfile** uses a two-stage build:
 
@@ -75,7 +75,7 @@ docker run -p 5000:5000 flaskapp:latest
 
 ---
 
-## ☸️ Kubernetes Deployment
+## Kubernetes Deployment
 
 ### Deployment (`deployment.yaml`)
 
@@ -103,7 +103,7 @@ kubectl get svc
 
 ---
 
-## 🌐 Accessing the App
+## Accessing the App
 
 Once deployed, get the LoadBalancer URL:
 
@@ -119,7 +119,7 @@ http://<EXTERNAL-IP>:5000
 
 ---
 
-## 📦 Local Development with Docker Compose
+## Local Development with Docker Compose
 
 ```bash
 docker-compose up --build
@@ -132,7 +132,7 @@ Services:
 
 ---
 
-## ✅ Final Outcome
+## Final Outcome
 
 * Push code → GitHub Actions triggers CI/CD pipeline.
 * Docker image → Built and pushed to AWS ECR.
@@ -141,7 +141,7 @@ Services:
 
 ---
 
-## 📝 Tech Stack
+## Tech Stack
 
 * **Flask** (Python web framework)
 * **Redis** (in-memory database)
