@@ -1,71 +1,51 @@
 name: build-and-deploy
 
+on:
+  push:
+    branches:
+      - main
 
-steps:
-- name: Checkout code
-uses: actions/checkout@v3
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest   # ✅ Use GitHub-hosted runner now
 
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-- name: Verify Docker
-run: docker version
+      # 🔹 Build Docker image
+      - name: Build Docker image
+        run: |
+          docker build -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO }}:latest .
 
+      # 🔹 Security scan (Trivy or similar)
+      - name: Scan Docker image
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO }}:latest
 
-- name: Build Docker image
-env:
-ECR_URI: ${{ secrets.ECR_URI }}
-run: |
-echo "Building ${ECR_URI}:latest"
-docker build -t ${ECR_URI}:latest .
+      # 🔹 Configure AWS credentials
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
+      # 🔹 Login to ECR
+      - name: Login to AWS ECR
+        run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
 
-- name: Scan Docker image (Trivy)
-uses: aquasecurity/trivy-action@master
-with:
-image-ref: ${{ secrets.ECR_URI }}:latest
+      # 🔹 Push to ECR
+      - name: Push Docker image
+        run: |
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO }}:latest
 
-
-- name: Configure AWS credentials
-uses: aws-actions/configure-aws-credentials@v4
-with:
-aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-aws-region: ${{ secrets.AWS_REGION }}
-
-
-- name: Login to ECR
-env:
-ECR_URI: ${{ secrets.ECR_URI }}
-run: |
-REGISTRY=$(echo $ECR_URI | cut -d'/' -f1)
-echo "Logging into ${REGISTRY}"
-aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin $REGISTRY
-
-
-- name: Push Docker image to ECR
-env:
-ECR_URI: ${{ secrets.ECR_URI }}
-run: docker push ${ECR_URI}:latest
-
-
-- name: Setup kubeconfig (if deploying to K8s)
-if: ${{ secrets.KUBECONFIG != '' }}
-run: |
-mkdir -p $HOME/.kube
-echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
-chmod 600 $HOME/.kube/config
-
-
-- name: Apply k8s manifests
-if: ${{ secrets.KUBECONFIG != '' }}
-run: |
-kubectl apply -f ./k8s/deployment.yaml
-kubectl apply -f ./k8s/service.yaml
-
-
-- name: Set deployment image and wait for rollout
-if: ${{ secrets.KUBECONFIG != '' }}
-env:
-ECR_URI: ${{ secrets.ECR_URI }}
-run: |
-kubectl set image deployment/flask-deployment flask=${ECR_URI}:latest --record
-kubectl rollout status deployment/flask-deployment -n default --timeout=120s
+      # 🔹 Deploy to EKS
+      - name: Deploy to Amazon EKS
+        run: |
+          echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
+          export KUBECONFIG=kubeconfig
+          kubectl apply -f k8s/deployment.yaml
+          kubectl apply -f k8s/service.yaml
+          kubectl rollout status deployment/flask-deployment
