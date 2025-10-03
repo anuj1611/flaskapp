@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout code
@@ -38,7 +38,4 @@ jobs:
           docker push ${{ secrets.ECR_URI }}:latest
 
       - name: Deploy to Kubernetes
-        uses: steebchen/kubectl@v2.0.0
-        with:
-          config: ${{ secrets.KUBECONFIG }}
-          command: apply -f k8s/
+        run: kubectl apply -f k8s/
