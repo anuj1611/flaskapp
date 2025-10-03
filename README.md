@@ -61,6 +61,12 @@ The pipeline consists of the following stages:
 6. **Push Docker image** → Pushes image to AWS ECR.
 7. **Deploy to Amazon EKS** → Applies Kubernetes manifests (Deployment & Service).
 
+
+<img width="719" height="134" alt="image" src="https://github.com/user-attachments/assets/bdb2ad20-6580-4748-ad29-09c6706a0243" />
+
+
+<img width="1919" height="982" alt="image" src="https://github.com/user-attachments/assets/e9b89639-9b93-4d9b-85f1-b0d1e1940a98" />
+
 ---
 
 ## Docker Setup
@@ -105,6 +111,18 @@ kubectl get pods
 kubectl get svc
 ```
 
+<img width="1505" height="106" alt="image" src="https://github.com/user-attachments/assets/73d2f34d-e9f9-43fd-be1b-3e52c35a3199" />
+
+
+<img width="1565" height="81" alt="image" src="https://github.com/user-attachments/assets/eb08ec07-8d8c-4d7f-83b0-25c6b9491813" />
+
+
+<img width="1560" height="102" alt="image" src="https://github.com/user-attachments/assets/31f89c99-731e-4d78-b3b3-59d22798a00a" />
+
+
+<img width="1266" height="286" alt="image" src="https://github.com/user-attachments/assets/c86c0f18-8603-4c40-a4f8-a83efaf3ecee" />
+
+
 ---
 
 ## Accessing the App
@@ -124,6 +142,9 @@ Then open:
 ```
 http://<EXTERNAL-IP>:5000
 ```
+
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/c7715739-a281-4704-8475-a0ee30365224" />
+
 
 ---
 
@@ -147,10 +168,6 @@ Services:
 * Kubernetes manifests → Applied to EKS cluster.
 * Application → Accessible via AWS LoadBalancer endpoint.
   
-
-<img width="1919" height="962" alt="image" src="https://github.com/user-attachments/assets/ff375bb0-9a14-423f-9310-8acf748c608d" />
-
-
 ---
 
 ## Tech Stack
